@@ -21,7 +21,7 @@ To run the project:
 
   npm install
 
-  npm run
+  npm start
 ```
 
 ## HOW TO USE
