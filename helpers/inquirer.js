@@ -25,6 +25,10 @@ const inquirerMenu = async () => {
           name: `${'3-'.blue} Complete a task`,
         },
         {
+          value: 4,
+          name: `${'4-'.blue} Delete a task`,
+        },
+        {
           value: 0,
           name: `${'0-'.blue} Exit`,
         },
@@ -51,23 +55,37 @@ const inquirerInput = async (message) => {
   return description;
 };
 
-const inquirerComplete = async (choices) => {
+const inquirerSelectTask = async (message, choices) => {
   const taskToComplete = [
     {
       type: 'checkbox',
-      name: 'complete',
-      message: 'Complete a Task',
+      name: 'select',
+      message,
       choices,
     },
   ];
 
-  const { complete } = await inquirer.prompt(taskToComplete);
+  const { select } = await inquirer.prompt(taskToComplete);
 
-  return complete;
+  return select;
+};
+
+const inquirerConfirm = async (message) => {
+  const confirmQuestion = [
+    {
+      type: 'confirm',
+      name: 'confirm',
+      message,
+    },
+  ];
+
+  const { confirm } = await inquirer.prompt(confirmQuestion);
+
+  return confirm;
 };
 
 module.exports = {
   inquirerMenu,
   inquirerInput,
-  inquirerComplete,
+  inquirerSelectTask,
 };

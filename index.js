@@ -4,6 +4,7 @@ const {
   inquirerMenu,
   inquirerInput,
   inquirerComplete,
+  inquirerSelectTask,
 } = require('./helpers/inquirer');
 const Task = require('./models/Task');
 const TaskRepository = require('./repositories/TaskRepository');
@@ -32,8 +33,19 @@ const main = async () => {
         });
         break;
       case 3:
-        const taskToComplete = await inquirerComplete(getTaskList());
+        const taskToComplete = await inquirerSelectTask(
+          'Complete a Task',
+          getTaskList(true)
+        );
         taskRepository.completeTask(taskToComplete);
+        break;
+      case 4:
+        const taskToDelete = await inquirerSelectTask(
+          'Delete a Task',
+          getTaskList(false)
+        );
+        console.log(taskToDelete);
+        taskRepository.deleteTask(taskToDelete);
         break;
     }
   } while (option !== 0);
@@ -41,16 +53,17 @@ const main = async () => {
 
 main();
 
-const getTaskList = () => {
+// Si checked es true -> Voy a marcar check las que ya complete
+// Si checked es false -> No las marco y uso el check para eliminar
+const getTaskList = (checked) => {
   const allTasks = taskRepository.getAllTasks();
   let taskChoices = [];
   for (let i = 0; i < allTasks.length; i++) {
     taskChoices.push({
       value: allTasks[i].id,
       name: allTasks[i].title,
-      checked: allTasks[i].done,
+      checked: checked & allTasks[i].done,
     });
   }
-  // taskChoices.push({value: false, name: 'Go back...'.green})
   return taskChoices;
 };

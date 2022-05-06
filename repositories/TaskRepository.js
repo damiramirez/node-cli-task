@@ -13,12 +13,6 @@ class TaskRepository {
     return this._tasks;
   }
 
-  /**
-   *
-   * @param {String} title
-   *
-   * TODO: Falta persisir datos
-   */
   createTask(title) {
     const task = new Task(title);
     this._tasks.push(task);
@@ -26,14 +20,22 @@ class TaskRepository {
   }
 
   deleteTask(id) {
-    return this._tasks.filter((task) => task.id !== id);
+    this._tasks = this._tasks.filter((task) => {
+      if (!id.includes(task.id)) {
+        return task;
+      }
+    });
+
+    saveData(this._tasks);
   }
 
   completeTask(id) {
-    this._tasks.every((task, index) => {
+    this._tasks.every((task) => {
       if (id.includes(task.id)) {
-        task.done = true;
-        task.finished = new Date().toLocaleString();
+        if (!task.done) {
+          task.done = true;
+          task.finished = new Date().toLocaleString();
+        }
       } else {
         task.done = false;
         task.finished = null;
@@ -41,12 +43,6 @@ class TaskRepository {
       return task;
     });
 
-    // this._tasks.map((task) => {
-    //   if (task.id === id) {
-    //     task.done = !task.done;
-    //   }
-    //   return task;
-    // });
     saveData(this._tasks);
   }
 }
