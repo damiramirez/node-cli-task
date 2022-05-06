@@ -38,7 +38,7 @@ To run the project:
 
 ![Tasks list](task-list.png)
 
-- To change the satus of a Task to COMPLETED select the option _Complete Task_ and you will be required to select the task(s) that you want to set status to completed:
+- To change the satus of a Task to COMPLETED select the option _Complete Task_ and you will be required to select the task(s) that you want to set status to completed. You can also uncheck the tasks, and the status will change to PENDING:
 
 ![Complete Task](task-complete.png)
 
