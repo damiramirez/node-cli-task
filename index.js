@@ -19,37 +19,55 @@ const main = async () => {
 
     switch (option) {
       case 1:
-        const title = await inquirerInput('Task Title:');
-        taskRepository.createTask(title);
+        console.clear();
+        try {
+          console.log('Create a task');
+          const title = await inquirerInput('Task Title:');
+          taskRepository.createTask(title);
+        } catch (e) {
+          console.log(e.message.red);
+        }
         break;
       case 2:
+        console.clear();
         const allTasks = taskRepository.getAllTasks();
-        allTasks.map((task) => {
-          task.done
-            ? console.log(
-                `> ${task.title} - ${'[COMPLETED]'.green} - ${task.finished}`
-              )
-            : console.log(`> ${task.title} - ${'[INCOMPLETED]'.red}`);
-        });
+
+        if (allTasks.length == 0) {
+          console.log('« Tasks list is empty »'.gray);
+        } else {
+          console.log('« Tasks list »'.blue);
+
+          allTasks.map((task) => {
+            task.done
+              ? console.log(
+                  `> ${task.title} - ${'[COMPLETED]'.green} - ${task.finished}`
+                )
+              : console.log(`> ${task.title} - ${'[INCOMPLETED]'.red}`);
+          });
+        }
         break;
       case 3:
+        console.clear();
         const taskToComplete = await inquirerSelectTask(
-          'Complete a Task',
+          'Complete a task(s)',
           getTaskList(true)
         );
         taskRepository.completeTask(taskToComplete);
         break;
       case 4:
+        console.clear();
         const taskToDelete = await inquirerSelectTask(
-          'Delete a Task',
+          'Delete a task(s)',
           getTaskList(false)
         );
 
-        const confirm = await inquirerConfirm('Are you sure?');
-        console.log(confirm);
-
-        if (confirm) {
-          taskRepository.deleteTask(taskToDelete);
+        if (taskToDelete.length > 0) {
+          const confirm = await inquirerConfirm(
+            'Are you sure you want to delete the task(s)?'
+          );
+          if (confirm) {
+            taskRepository.deleteTask(taskToDelete);
+          }
         }
 
         break;

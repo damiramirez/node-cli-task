@@ -14,9 +14,13 @@ class TaskRepository {
   }
 
   createTask(title) {
-    const task = new Task(title);
-    this._tasks.push(task);
-    saveData(this._tasks);
+    if (title == '') {
+      throw new Error('Task must have a title to be created.');
+    } else {
+      const task = new Task(title);
+      this._tasks.push(task);
+      saveData(this._tasks);
+    }
   }
 
   deleteTask(id) {
