@@ -88,4 +88,5 @@ module.exports = {
   inquirerMenu,
   inquirerInput,
   inquirerSelectTask,
+  inquirerConfirm,
 };

@@ -3,8 +3,8 @@ require('colors');
 const {
   inquirerMenu,
   inquirerInput,
-  inquirerComplete,
   inquirerSelectTask,
+  inquirerConfirm,
 } = require('./helpers/inquirer');
 const Task = require('./models/Task');
 const TaskRepository = require('./repositories/TaskRepository');
@@ -44,8 +44,14 @@ const main = async () => {
           'Delete a Task',
           getTaskList(false)
         );
-        console.log(taskToDelete);
-        taskRepository.deleteTask(taskToDelete);
+
+        const confirm = await inquirerConfirm('Are you sure?');
+        console.log(confirm);
+
+        if (confirm) {
+          taskRepository.deleteTask(taskToDelete);
+        }
+
         break;
     }
   } while (option !== 0);
