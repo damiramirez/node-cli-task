@@ -29,7 +29,22 @@ class TaskRepository {
     return this._tasks.filter((task) => task.id !== id);
   }
 
-  completeTask(id) {}
+  completeTask(id) {
+    this._tasks.every((task, index) => {
+      if (id.includes(task.id)) {
+        task.done = !task.done;
+      }
+      return task;
+    });
+
+    // this._tasks.map((task) => {
+    //   if (task.id === id) {
+    //     task.done = !task.done;
+    //   }
+    //   return task;
+    // });
+    saveData(this._tasks);
+  }
 }
 
 module.exports = TaskRepository;

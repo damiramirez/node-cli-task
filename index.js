@@ -1,9 +1,16 @@
-const { inquirerMenu, inquirerInput } = require('./helpers/inquirer');
+require('colors');
+
+const {
+  inquirerMenu,
+  inquirerInput,
+  inquirerComplete,
+} = require('./helpers/inquirer');
+const Task = require('./models/Task');
 const TaskRepository = require('./repositories/TaskRepository');
 
-const main = async () => {
-  const taskRepository = new TaskRepository();
+const taskRepository = new TaskRepository();
 
+const main = async () => {
   let option = '';
 
   do {
@@ -16,10 +23,32 @@ const main = async () => {
         break;
       case 2:
         const allTasks = taskRepository.getAllTasks();
-        console.log(allTasks);
+        allTasks.map((task) => {
+          task.done
+            ? console.log(`> ${task.title} - ${'[COMPLETED]'.green}`)
+            : console.log(`> ${task.title} - ${'[INCOMPLETED]'.red}`);
+        });
+        break;
+      case 3:
+        const taskToComplete = await inquirerComplete(getTaskList());
+        taskRepository.completeTask(taskToComplete);
         break;
     }
   } while (option !== 0);
 };
 
 main();
+
+const getTaskList = () => {
+  const allTasks = taskRepository.getAllTasks();
+  let taskChoices = [];
+  for (let i = 0; i < allTasks.length; i++) {
+    taskChoices.push({
+      value: allTasks[i].id,
+      name: allTasks[i].title,
+      checked: allTasks[i].done,
+    });
+  }
+  // taskChoices.push({value: false, name: 'Go back...'.green})
+  return taskChoices;
+};
