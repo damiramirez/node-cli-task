@@ -6,6 +6,24 @@
 
 **'CLI Task'** is an application that allows the creation of a list of pending tasks and allowing that they can then be completed by automatically changing their status. It works through the terminal.
 
+## DEVELOPMENT
+
+All files in this repository were developed using _Node.js v14.19.1_, and the following external libraries has been used in the project:
+
+    - inquirer (v8.2.4): A collection of common interactive command line user interfaces.
+    - colors (v1.4.0): A library for immutable color conversion and manipulation with support for CSS color strings.
+    - uuid (v8.3.2): To create a random UUID.
+
+To run the project:
+
+```
+  cd node-cli-task
+
+  npm install
+
+  npm run
+```
+
 ## HOW TO USE
 
 - When the app start the CLI Task will show up:
