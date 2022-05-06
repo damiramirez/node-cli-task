@@ -42,7 +42,7 @@ const main = async () => {
               ? console.log(
                   `> ${task.title} - ${'[COMPLETED]'.green} - ${task.finished}`
                 )
-              : console.log(`> ${task.title} - ${'[INCOMPLETED]'.red}`);
+              : console.log(`> ${task.title} - ${'[PENDIENT]'.gray}`);
           });
         }
         break;

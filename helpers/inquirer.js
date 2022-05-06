@@ -3,10 +3,11 @@ require('colors');
 
 const inquirerMenu = async () => {
   console.log('');
-  console.log('========================================'.blue);
-  console.log('Select an option'.white);
-  console.log('========================================'.blue);
-
+  console.log('┌────────────────────────────────────────────┐'.blue);
+  console.log(
+    `${'│              '.blue}${'Task Manager'}${'                  │'.blue}`
+  );
+  console.log('└────────────────────────────────────────────┘'.blue);
   const menu = [
     {
       type: 'list',
