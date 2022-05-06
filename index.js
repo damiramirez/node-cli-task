@@ -9,12 +9,13 @@ const main = async () => {
   switch (option) {
     case 1:
       // TODO: Hacer que el usuario pueda ingresar el titulo de tarea
-      const title = await inquirerInput('Title for the task');
+      const title = await inquirerInput('Task Title:');
       taskRepository.createTask(title);
       break;
     case 2:
       // TODO: Mostrar tareas de DB
-      console.log('Mostrar tareas');
+      const allTasks = taskRepository.getAllTasks();
+      console.log(allTasks);
       break;
   }
 };
