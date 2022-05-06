@@ -32,7 +32,11 @@ class TaskRepository {
   completeTask(id) {
     this._tasks.every((task, index) => {
       if (id.includes(task.id)) {
-        task.done = !task.done;
+        task.done = true;
+        task.finished = new Date().toLocaleString();
+      } else {
+        task.done = false;
+        task.finished = null;
       }
       return task;
     });

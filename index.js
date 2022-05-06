@@ -25,7 +25,9 @@ const main = async () => {
         const allTasks = taskRepository.getAllTasks();
         allTasks.map((task) => {
           task.done
-            ? console.log(`> ${task.title} - ${'[COMPLETED]'.green}`)
+            ? console.log(
+                `> ${task.title} - ${'[COMPLETED]'.green} - ${task.finished}`
+              )
             : console.log(`> ${task.title} - ${'[INCOMPLETED]'.red}`);
         });
         break;
